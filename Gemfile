@@ -1,45 +1,48 @@
-source 'https://rubygems.org'
-
-gem 'rails', '3.2.13'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-group :development do
-  gem 'sqlite3'
-  gem 'carrierwave'
+if RUBY_VERSION =~ /1.9/
+  Encoding.default_external = Encoding::UTF_8
+  Encoding.default_internal = Encoding::UTF_8
 end
 
-group :production do
-  gem 'pg'
-end
+source 'http://rubygems.org'
 
+gem "rails", "~> 3.2.12"
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
-
-  gem 'uglifier', '>= 1.0.3'
-end
-
+gem 'simple_form'
 gem 'jquery-rails'
+gem 'rails_autolink'
+gem 'ey_config'
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+group :assets do
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
+end
 
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
+platform :ruby do
+  gem 'pg'
+  gem 'sqlite3'
+  gem 'mysql2'
+  gem 'unicorn'
+end
 
-# Use unicorn as the app server
-# gem 'unicorn'
+platforms :jruby do
+  gem 'activerecord-jdbc-adapter'
+  gem 'activerecord-jdbcpostgresql-adapter'
+  gem 'jruby-openssl'
+  gem 'jdbc-mysql', :require => false
+  gem 'jdbc-sqlite3', :require => false
+  gem 'jdbc-postgres', :require => false
+  gem 'trinidad'
+  gem 'thor'
+end
 
-# Deploy with Capistrano
-# gem 'capistrano'
+group :rbx do
+  gem 'puma'
+end
 
-# To use debugger
-# gem 'debugger'
+# Bundle gems for the local environment. Make sure to
+# put test-only gems in this group so their generators
+# and rake tasks are available in development mode:
+group :development, :test do
+
+end
